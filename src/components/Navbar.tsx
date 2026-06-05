@@ -8,8 +8,9 @@ export default function Navbar() {
 
   return (
     <>
-      {/* HEADER UTAMA: Dipastikan pakai z-50 agar logo dan baris menu selalu di depan */}
-      <header className="fixed top-0 left-0 w-full h-20 bg-transparent flex items-center justify-between px-6 md:px-12 z-50 pointer-events-auto">
+      {/* FIX TOTAL: Sasis header dinaikkan ke pangkat z-[60] 
+          agar logo dan tombol X dipaksa berada di lapisan paling depan, mengalahkan laci menu (z-50) */}
+      <header className="fixed top-0 left-0 w-full h-20 bg-transparent flex items-center justify-between px-6 md:px-12 z-[60] pointer-events-auto">
         {/* LOGO LUNEX */}
         <div className="flex items-center gap-2 cursor-pointer">
           <div className="w-4 h-4 border border-[#D4AF37] rotate-45" />
@@ -21,7 +22,7 @@ export default function Navbar() {
         {/* BURGER / CLOSE BUTTON */}
         <button 
           onClick={() => setIsOpen(!isOpen)} 
-          className="relative w-8 h-8 flex flex-col justify-center items-end gap-1.5 focus:outline-none z-50"
+          className="relative w-8 h-8 flex flex-col justify-center items-end gap-1.5 focus:outline-none z-[60]"
         >
           <span className={`h-[1px] bg-[#D4AF37] transition-all duration-300 ${isOpen ? "w-6 rotate-45 translate-y-2" : "w-6"}`} />
           <span className={`h-[1px] bg-[#D4AF37] transition-all duration-300 ${isOpen ? "opacity-0 w-0" : "w-4"}`} />
@@ -29,8 +30,7 @@ export default function Navbar() {
         </button>
       </header>
 
-      {/* MOBILE MENU DRAWER OVERLAY
-          FIX TOTAL: Wajib menggunakan z-50 agar laci menu melayang mutlak di atas sasis z-40 Hero */}
+      {/* MOBILE MENU DRAWER OVERLAY (Tetap di lapisan z-50) */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
