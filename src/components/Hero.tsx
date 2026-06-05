@@ -52,7 +52,6 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#050505_100%)]" />
         
-        {/* FIX DI SINI: String className yang terputus di baris 58 sudah ditutup & dilengkapi sempurna */}
         {particles.map((p, idx) => (
           <div
             key={idx}
@@ -67,20 +66,19 @@ export default function Hero() {
             }}
           />
         ))}
-
         <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent z-10" />
       </div>
 
       {/* CORE ULTRA-WIDE GRID SYSTEM */}
       <div 
         style={{ width: "94vw" }}
-        className="mx-auto grid grid-cols-1 lg:grid-cols-[46%_54%] min-w-0 relative z-20 items-center pt-24 lg:pt-20 overflow-hidden"
+        className="mx-auto grid grid-cols-1 lg:grid-cols-[46%_54%] min-w-0 relative z-20 items-center pt-20 lg:pt-20 overflow-hidden"
       >
         
         {/* Left Column Text Block */}
         <motion.div 
           style={{ y: textY, opacity: opacityTransform }}
-          className="flex flex-col items-start gap-5 md:gap-6 text-left relative z-20 min-w-0 w-full"
+          className="flex flex-col items-start gap-4 md:gap-6 text-left relative z-20 min-w-0 w-full"
         >
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -97,7 +95,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="font-serif font-light leading-[0.95] text-6xl md:text-7xl xl:text-8xl 2xl:text-9xl tracking-tight text-white flex flex-col"
+            className="font-serif font-light leading-[0.95] text-5xl md:text-7xl xl:text-8xl 2xl:text-9xl tracking-tight text-white flex flex-col"
           >
             <span>Time,</span>
             <span className="shimmer-text font-normal">perfected.</span>
@@ -123,7 +121,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
-            className="pt-2"
+            className="pt-1"
           >
             <a 
               href="#collection"
@@ -138,7 +136,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="flex items-center gap-4 text-[8px] tracking-[0.35em] text-white/20 uppercase font-semibold mt-4 lg:mt-8"
+            className="flex items-center gap-4 text-[8px] tracking-[0.35em] text-white/20 uppercase font-semibold mt-2 lg:mt-8"
           >
             <span>EST. MMXXIV</span>
             <span className="text-[#D4AF37]">•</span>
@@ -146,13 +144,13 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right Column Interactive 3D Frame (Dipertahankan di h-[60vh] aman dari crop mobile) */}
-        <div className="relative w-full h-[60vh] lg:h-[75vh] xl:h-[80vh] flex items-center justify-center min-w-0 max-w-full mt-8 lg:mt-0">
+        {/* Right Column Interactive 3D Frame
+            FIX: Ketinggian boks di HP dikunci h-[42vh] biar langsung sejajar nangkring estetik di bawah teks */}
+        <div className="relative w-full h-[42vh] lg:h-[75vh] xl:h-[80vh] flex items-center justify-center min-w-0 max-w-full mt-4 lg:mt-0">
           <div className="w-full h-full relative z-10 min-w-0 min-h-0">
             <Watch3D />
           </div>
 
-          {/* Pagination Indicators */}
           <div className="absolute right-0 bottom-12 hidden sm:flex flex-col gap-4 items-end pointer-events-none">
             <div className="flex items-center gap-2">
               <span className="text-white text-[10px] tracking-widest font-medium">01</span>
@@ -163,12 +161,6 @@ export default function Hero() {
           </div>
         </div>
 
-      </div>
-
-      {/* Scroll Indicator Accent */}
-      <div className="absolute bottom-8 left-8 lg:left-20 hidden md:flex items-center gap-4 origin-left rotate-90 translate-y-8 pointer-events-none">
-        <span className="text-[9px] tracking-[0.3em] text-white/30 uppercase font-medium">SCROLL</span>
-        <span className="w-12 h-[1px] bg-[#D4AF37]/40 animate-pulse" />
       </div>
     </section>
   )
