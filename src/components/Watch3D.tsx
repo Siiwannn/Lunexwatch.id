@@ -28,7 +28,7 @@ function MechanicalWatchAssembly({ isMobile }: { isMobile: boolean }) {
   })
 
   return (
-    <group ref={groupRef} scale={isMobile ? 0.85 : 0.60} rotation={[0.1, -0.15, 0]}>
+    <group ref={groupRef} scale={isMobile ? 0.70 : 0.60} rotation={[0.1, -0.15, 0]}>
       
       {/* 1. BODI EMAS UTAMA (CASE) */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
