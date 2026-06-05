@@ -32,8 +32,12 @@ export default function Hero() {
     setParticles(generateParticles())
   }, [])
   
+  // TIMELINE ANIMASI: Sinkronisasi gerakan teks dan lingkaran saat di-scroll
   const textY = useTransform(scrollY, [0, 500], [0, -60])
   const opacityTransform = useTransform(scrollY, [0, 400], [1, 0])
+  
+  const ringsScale = useTransform(scrollY, [0, 500], [1, 3.5])
+  const ringsOpacity = useTransform(scrollY, [0, 500], [1, 0])
 
   return (
     <section className="relative min-h-screen w-full max-w-full overflow-hidden bg-[#050505] flex items-center">
@@ -144,9 +148,29 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right Column Interactive 3D Frame
-            FIX: Ketinggian boks di HP dikunci h-[42vh] biar langsung sejajar nangkring estetik di bawah teks */}
+        {/* Right Column Frame */}
         <div className="relative w-full h-[42vh] lg:h-[75vh] xl:h-[80vh] flex items-center justify-center min-w-0 max-w-full mt-4 lg:mt-0">
+          
+          {/* FIX FUSION: Lingkaran disuntik langsung ke sini agar mengunci 1:1 dengan pusat Jam 3D */}
+          <motion.div 
+            style={{ 
+              scale: ringsScale, 
+              opacity: ringsOpacity,
+            }}
+            className="absolute w-[360px] h-[360px] lg:w-[650px] lg:h-[650px] flex items-center justify-center origin-center pointer-events-none z-0"
+          >
+            <div className="absolute w-[160px] h-[160px] lg:w-[260px] lg:h-[260px] border border-[#D4AF37]/20 rounded-full spin-ring" />
+            <div className="absolute w-[220px] h-[220px] lg:w-[380px] lg:h-[380px] border border-[#D4AF37]/12 rounded-full spin-ring-reverse" />
+            <div className="absolute w-[280px] h-[280px] lg:w-[500px] lg:h-[500px] border border-[#D4AF37]/8 rounded-full spin-ring-slow" />
+            <div 
+              style={{
+                backgroundImage: "radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.06) 45%, rgba(212,175,55,0) 70%)"
+              }}
+              className="absolute w-[240px] h-[240px] lg:w-[420px] lg:h-[420px] rounded-full transform-gpu will-change-transform animate-[border-glow-pulse_4s_infinite]" 
+            />
+          </motion.div>
+
+          {/* Interactive 3D Watch */}
           <div className="w-full h-full relative z-10 min-w-0 min-h-0">
             <Watch3D />
           </div>

@@ -28,9 +28,9 @@ function MechanicalWatchAssembly({ isMobile }: { isMobile: boolean }) {
   })
 
   return (
-    <group ref={groupRef} scale={isMobile ? 0.90 : 0.60} rotation={[0.1, -0.15, 0]}>
+    <group ref={groupRef} scale={isMobile ? 0.95 : 0.85} rotation={[0.1, -0.15, 0]}>
       
-      {/* 1. BODI EMAS UTAMA (CASE) - Depan berada di Z = 0.15 */}
+      {/* 1. BODI EMAS UTAMA (CASE) */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[2.2, 2.2, 0.3, segments]} />
         <meshStandardMaterial color="#D4AF37" metalness={0.7} roughness={0.3} />
@@ -42,14 +42,13 @@ function MechanicalWatchAssembly({ isMobile }: { isMobile: boolean }) {
         <meshStandardMaterial color="#B8961E" metalness={0.8} roughness={0.2} />
       </mesh>
 
-      {/* 3. PLAT WAJAH JAM (DIAL) 
-          FIX Z-FIGHTING: Dimajukan ke Z = 0.152 dengan ketebalan 0.01 (Permukaan depan aman di Z = 0.157) */}
+      {/* 3. PLAT WAJAH JAM (DIAL) */}
       <mesh position={[0, 0, 0.152]} rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[1.94, 1.94, 0.01, segments]} />
         <meshStandardMaterial color="#0A0A0A" metalness={0.2} roughness={0.6} />
       </mesh>
 
-      {/* 4. GARIS INDEKS ANGKA LUAR (12 JAM) - Disesuaikan menempel di atas dial */}
+      {/* 4. GARIS INDEKS ANGKA LUAR (12 JAM) */}
       {Array.from({ length: 12 }).map((_, i) => {
         const angle = (i * Math.PI) / 6
         return (
@@ -60,7 +59,7 @@ function MechanicalWatchAssembly({ isMobile }: { isMobile: boolean }) {
         )
       })}
 
-      {/* 5. SISTEM JARUM JAM INTERAKTIF - Diberi micro-spacing bertingkat agar anti-bentrok */}
+      {/* 5. SISTEM JARUM JAM INTERAKTIF */}
       <group ref={hourHandRef} position={[0, 0, 0.165]}>
         <mesh position={[0, 0.4, 0]}>
           <boxGeometry args={[0.07, 0.8, 0.02]} />
@@ -125,7 +124,12 @@ export default function Watch3D() {
   }, [])
 
   return (
-    <div className="absolute inset-0 w-full h-full min-w-0 min-h-0 overflow-hidden cursor-grab active:cursor-grabbing">
+    /* FIX FINAL MOBILE TOUCH-DRAG: 
+       Di HP kita pasang 'pointer-events-none' agar Canvas tidak ngebajak swipe jempol user.
+       Native page scroll dipastikan langsung super ringan, licin, dan auto-lancar jaya! */
+    <div className={`absolute inset-0 w-full h-full min-w-0 min-h-0 overflow-hidden ${
+      isMobile ? "pointer-events-none" : "cursor-grab active:cursor-grabbing"
+    }`}>
       <Canvas
         key={isMobile ? "canvas-mobile" : "canvas-desktop"}
         camera={{ position: [0, 0, isMobile ? 6.8 : 5.5], fov: 45 }}
@@ -139,7 +143,10 @@ export default function Watch3D() {
         <Center>
           <MechanicalWatchAssembly isMobile={isMobile} />
         </Center>
-        <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 1.3} minPolarAngle={Math.PI / 4} />
+        
+        {!isMobile && (
+          <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 1.3} minPolarAngle={Math.PI / 4} />
+        )}
       </Canvas>
     </div>
   )

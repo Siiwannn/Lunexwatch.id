@@ -15,8 +15,6 @@ export default function Home() {
     <main className="relative min-h-screen w-full bg-[#050505]">
       <Navbar />
       
-      {/* 1. FONDASI UTAMA: Lapisan lingkaran emas fixed background */}
-      <GlobalBackgroundRings /> 
       
       {/* 2. ALUR TIMELINE SEKSI SITUS: Mengalir lurus tanpa duplikasi */}
       <Hero />
