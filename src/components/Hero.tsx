@@ -32,12 +32,12 @@ export default function Hero() {
     setParticles(generateParticles())
   }, [])
   
-  // TIMELINE ANIMASI: Sinkronisasi gerakan teks dan lingkaran saat di-scroll
-  const textY = useTransform(scrollY, [0, 500], [0, -60])
-  const opacityTransform = useTransform(scrollY, [0, 400], [1, 0])
+  // FIX FINAL TIMELINE: Ritme dipercepat (0-280px) agar efek matinya kelar SEBELUM seksi bawah naik menabrak boks Hero
+  const textY = useTransform(scrollY, [0, 280], [0, -40])
+  const opacityTransform = useTransform(scrollY, [0, 220], [1, 0])
   
-  const ringsScale = useTransform(scrollY, [0, 500], [1, 3.5])
-  const ringsOpacity = useTransform(scrollY, [0, 500], [1, 0])
+  const ringsScale = useTransform(scrollY, [0, 280], [1, 2.8])
+  const ringsOpacity = useTransform(scrollY, [0, 250], [1, 0]) // Dikunci mati murni jadi gaib di pixel 250
 
   return (
     <section className="relative min-h-screen w-full max-w-full overflow-hidden bg-[#050505] flex items-center">
@@ -151,7 +151,7 @@ export default function Hero() {
         {/* Right Column Frame */}
         <div className="relative w-full h-[42vh] lg:h-[75vh] xl:h-[80vh] flex items-center justify-center min-w-0 max-w-full mt-4 lg:mt-0">
           
-          {/* FIX FUSION: Lingkaran disuntik langsung ke sini agar mengunci 1:1 dengan pusat Jam 3D */}
+          {/* Background Rings */}
           <motion.div 
             style={{ 
               scale: ringsScale, 
@@ -170,10 +170,13 @@ export default function Hero() {
             />
           </motion.div>
 
-          {/* Interactive 3D Watch */}
-          <div className="w-full h-full relative z-10 min-w-0 min-h-0">
+          {/* Interactive 3D Watch & Smooth Scroll Wrapper */}
+          <motion.div 
+            style={{ opacity: ringsOpacity }} // Jam 3D ikut memudar habis di pixel 250 bareng ring
+            className="w-full h-full relative z-10 min-w-0 min-h-0"
+          >
             <Watch3D />
-          </div>
+          </motion.div>
 
           <div className="absolute right-0 bottom-12 hidden sm:flex flex-col gap-4 items-end pointer-events-none">
             <div className="flex items-center gap-2">
