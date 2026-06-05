@@ -1,0 +1,133 @@
+/* 1. ATURAN IMPORT WAJIB BERADA DI BARIS PALING ATAS */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Montserrat:wght@200;300;400;500;600&display=swap');
+@import "tailwindcss";
+
+/* 2. DEKLARASI VARIABLE ROOT */
+:root {
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', system-ui, sans-serif;
+}
+
+/* 3. KUNCI MATI ROOT VIEWPORT DARI KEBOCORAN */
+html, body, html.lenis, html.lenis body { 
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #050505;
+  color: #F8F8F8;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ... Sisa kode .cursor-dot, .cursor-ring, keyframes, dan utility di bawahnya tetap sama ... */
+
+
+/* 4. CUSTOM PREMIUM CURSOR */
+.cursor-dot {
+  width: 8px; 
+  height: 8px;
+  background: #D4AF37;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-ring {
+  width: 32px; 
+  height: 32px;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 5. LUXURY SCROLLBAR */
+::-webkit-scrollbar { 
+  width: 3px; 
+}
+::-webkit-scrollbar-track { 
+  background: #050505; 
+}
+::-webkit-scrollbar-thumb { 
+  background: #D4AF37; 
+  border-radius: 2px; 
+}
+::selection { 
+  background: rgba(212, 175, 55, 0.25); 
+  color: #F8F8F8; 
+}
+
+/* 6. KEYFRAME ANIMATIONS */
+@keyframes float-watch {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-24px) rotate(1deg); }
+}
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spin-ring-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+@keyframes particle-rise {
+  0% { opacity: 0; transform: translateY(100px) scale(0); }
+  10% { opacity: 1; }
+  90% { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(-100vh) scale(1); }
+}
+@keyframes orb-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.12; }
+  33% { transform: translate(60px, -40px) scale(1.15); opacity: 0.18; }
+  66% { transform: translate(-30px, 30px) scale(0.9); opacity: 0.08; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes border-glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.3), 0 0 80px rgba(212, 175, 55, 0.1); }
+}
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.02; }
+  50% { opacity: 0.05; }
+}
+
+/* 7. UTILITY CLASSES */
+.float-watch { animation: float-watch 7s ease-in-out infinite; }
+.spin-ring { animation: spin-ring 25s linear infinite; }
+.spin-ring-reverse { animation: spin-ring-reverse 18s linear infinite; }
+.spin-ring-slow { animation: spin-ring 40s linear infinite; }
+
+.shimmer-text {
+  background: linear-gradient(90deg, #B8961E, #D4AF37, #E8C84A, #D4AF37, #B8961E);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.gold-glow {
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.2), 0 0 80px rgba(212, 175, 55, 0.08);
+}
