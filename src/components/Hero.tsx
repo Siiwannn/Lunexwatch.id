@@ -32,15 +32,18 @@ export default function Hero() {
     setParticles(generateParticles())
   }, [])
   
-  // FIX FINAL TIMELINE: Ritme dipercepat (0-280px) agar efek matinya kelar SEBELUM seksi bawah naik menabrak boks Hero
-  const textY = useTransform(scrollY, [0, 280], [0, -40])
-  const opacityTransform = useTransform(scrollY, [0, 220], [1, 0])
+  // TIMELINE SINKRONISASI GERAKAN
+  const textY = useTransform(scrollY, [0, 400], [0, -40])
+  const textOpacity = useTransform(scrollY, [0, 300], [1, 0])
   
-  const ringsScale = useTransform(scrollY, [0, 280], [1, 2.8])
-  const ringsOpacity = useTransform(scrollY, [0, 250], [1, 0]) // Dikunci mati murni jadi gaib di pixel 250
+  const ringsScale = useTransform(scrollY, [0, 400], [1, 2.2])
+  const ringsOpacity = useTransform(scrollY, [0, 350], [1, 0])
+
+  // Nilai pergerakan vertikal jam tangan
+  const watchY = useTransform(scrollY, [0, 400], [0, -30])
 
   return (
-    <section className="relative min-h-screen w-full max-w-full overflow-hidden bg-[#050505] flex items-center">
+    <section className="relative min-h-screen w-full max-w-full bg-[#050505] flex items-center z-40">
       
       {/* BACKGROUND DECORATIONS */}
       <div className="absolute inset-0 z-0 pointer-events-none w-full max-w-full overflow-hidden">
@@ -76,12 +79,12 @@ export default function Hero() {
       {/* CORE ULTRA-WIDE GRID SYSTEM */}
       <div 
         style={{ width: "94vw" }}
-        className="mx-auto grid grid-cols-1 lg:grid-cols-[46%_54%] min-w-0 relative z-20 items-center pt-20 lg:pt-20 overflow-hidden"
+        className="mx-auto grid grid-cols-1 lg:grid-cols-[46%_54%] min-w-0 relative z-20 items-center pt-20 lg:pt-20"
       >
         
         {/* Left Column Text Block */}
         <motion.div 
-          style={{ y: textY, opacity: opacityTransform }}
+          style={{ y: textY, opacity: textOpacity }}
           className="flex flex-col items-start gap-4 md:gap-6 text-left relative z-20 min-w-0 w-full"
         >
           <motion.div
@@ -132,7 +135,7 @@ export default function Hero() {
               className="bg-[#D4AF37] text-black px-8 py-3.5 text-[10px] tracking-[0.3em] font-medium flex items-center gap-3 transition-all duration-400 border border-[#D4AF37] hover:bg-transparent hover:text-[#D4AF37] group"
             >
               DISCOVER THE COLLECTION
-              <span className="transform transition-transform duration-300 group-hover:translate-x-2">→</span>
+              <span className="transform transition-transform duration-300 group-hover:translate-x-2"></span>
             </a>
           </motion.div>
 
@@ -143,7 +146,7 @@ export default function Hero() {
             className="flex items-center gap-4 text-[8px] tracking-[0.35em] text-white/20 uppercase font-semibold mt-2 lg:mt-8"
           >
             <span>EST. MMXXIV</span>
-            <span className="text-[#D4AF37]">•</span>
+            <span className="text-[#D4AF37] font-normal">•</span>
             <span>Geneva, Switzerland</span>
           </motion.div>
         </motion.div>
@@ -151,28 +154,31 @@ export default function Hero() {
         {/* Right Column Frame */}
         <div className="relative w-full h-[42vh] lg:h-[75vh] xl:h-[80vh] flex items-center justify-center min-w-0 max-w-full mt-4 lg:mt-0">
           
-          {/* Background Rings */}
+          {/* Background Rings Emas 
+              FIX PARALLAX SYNC: Menyuntikkan 'y: watchY' agar pergerakan vertikal 
+              lingkaran ikut bergeser naik secara presisi barengan dengan jam tangan saat di-scroll */}
           <motion.div 
             style={{ 
               scale: ringsScale, 
               opacity: ringsOpacity,
+                y: watchY,
             }}
-            className="absolute w-[360px] h-[360px] lg:w-[650px] lg:h-[650px] flex items-center justify-center origin-center pointer-events-none z-0"
+            className="absolute inset-0 m-auto w-[290px] h-[290px] lg:w-[650px] lg:h-[650px] flex items-center justify-center origin-center pointer-events-none z-0"
           >
-            <div className="absolute w-[160px] h-[160px] lg:w-[260px] lg:h-[260px] border border-[#D4AF37]/20 rounded-full spin-ring" />
-            <div className="absolute w-[220px] h-[220px] lg:w-[380px] lg:h-[380px] border border-[#D4AF37]/12 rounded-full spin-ring-reverse" />
-            <div className="absolute w-[280px] h-[280px] lg:w-[500px] lg:h-[500px] border border-[#D4AF37]/8 rounded-full spin-ring-slow" />
+            <div className="absolute w-[130px] h-[130px] lg:w-[260px] lg:h-[260px] border border-[#D4AF37]/20 rounded-full spin-ring" />
+            <div className="absolute w-[180px] h-[180px] lg:w-[380px] lg:h-[380px] border border-[#D4AF37]/12 rounded-full spin-ring-reverse" />
+            <div className="absolute w-[230px] h-[230px] lg:w-[500px] lg:h-[500px] border border-[#D4AF37]/8 rounded-full spin-ring-slow" />
             <div 
               style={{
                 backgroundImage: "radial-gradient(circle, rgba(212,175,55,0.2) 0%, rgba(212,175,55,0.06) 45%, rgba(212,175,55,0) 70%)"
               }}
-              className="absolute w-[240px] h-[240px] lg:w-[420px] lg:h-[420px] rounded-full transform-gpu will-change-transform animate-[border-glow-pulse_4s_infinite]" 
+              className="absolute w-[190px] h-[190px] lg:w-[420px] lg:h-[420px] rounded-full transform-gpu will-change-transform animate-[border-glow-pulse_4s_infinite]" 
             />
           </motion.div>
 
-          {/* Interactive 3D Watch & Smooth Scroll Wrapper */}
+          {/* Interactive 3D Watch */}
           <motion.div 
-            style={{ opacity: ringsOpacity }} // Jam 3D ikut memudar habis di pixel 250 bareng ring
+            style={{ y: watchY }}
             className="w-full h-full relative z-10 min-w-0 min-h-0"
           >
             <Watch3D />
